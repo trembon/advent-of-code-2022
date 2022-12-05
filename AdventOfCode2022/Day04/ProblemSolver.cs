@@ -2,18 +2,18 @@
 {
     internal class ProblemSolver : IProblemSolver
     {
-        public Task<double> SolveTaskOne(string[] input)
+        public object SolveTaskOne(string[] input)
         {
             var segments = CalculateSegments(input);
             int result = CheckDuplicateSegments(segments);
-            return Task.FromResult((double)result);
+            return result;
         }
 
-        public Task<double> SolveTaskTwo(string[] input)
+        public object SolveTaskTwo(string[] input)
         {
             var segments = CalculateSegments(input);
             int result = CheckAnyDuplicateSegments(segments);
-            return Task.FromResult((double)result);
+            return result;
         }
 
         private List<(IEnumerable<int> first, IEnumerable<int> second)> CalculateSegments(string[] input)

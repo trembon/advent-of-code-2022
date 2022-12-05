@@ -2,7 +2,7 @@
 {
     internal interface IProblemSolver
     {
-        Task<double> SolveTaskOne(string[] input);
-        Task<double> SolveTaskTwo(string[] input);
+        object SolveTaskOne(string[] input);
+        object SolveTaskTwo(string[] input);
     }
 }

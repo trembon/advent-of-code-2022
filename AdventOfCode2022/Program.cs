@@ -41,7 +41,7 @@ var watch = new System.Diagnostics.Stopwatch();
 try
 {
     watch.Start();
-    double taskOneSolution = await problemSolver.SolveTaskOne(inputArray);
+    object taskOneSolution = problemSolver.SolveTaskOne(inputArray);
     watch.Stop();
     Console.WriteLine($"Solution for task 1 ({watch.ElapsedMilliseconds}ms): {taskOneSolution}");
 }
@@ -55,7 +55,7 @@ Console.WriteLine();
 try
 {
     watch.Restart();
-    double taskTwoSolution = await problemSolver.SolveTaskTwo(inputArray);
+    object taskTwoSolution = problemSolver.SolveTaskTwo(inputArray);
     watch.Stop();
     Console.WriteLine($"Solution for task 2 ({watch.ElapsedMilliseconds}ms): {taskTwoSolution}");
 }

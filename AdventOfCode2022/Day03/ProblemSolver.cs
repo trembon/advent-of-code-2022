@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode2022.Day03
+﻿namespace AdventOfCode2022.Day03
 {
     internal class ProblemSolver : IProblemSolver
     {
-        public Task<double> SolveTaskOne(string[] input)
+        public object SolveTaskOne(string[] input)
         {
             var sharedItems = FindSharedItems(input);
             double priority = CalculatePriority(sharedItems);
-            return Task.FromResult(priority);
+            return priority;
         }
 
-        public Task<double> SolveTaskTwo(string[] input)
+        public object SolveTaskTwo(string[] input)
         {
             var sharedItems = FindSharedItemsInThreeGroups(input);
             double priority = CalculatePriority(sharedItems);
-            return Task.FromResult(priority);
+            return priority;
         }
 
         private List<char> FindSharedItems(string[] input)

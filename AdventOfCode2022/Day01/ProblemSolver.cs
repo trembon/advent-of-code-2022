@@ -2,17 +2,17 @@
 {
     internal class ProblemSolver : IProblemSolver
     {
-        public Task<double> SolveTaskOne(string[] input)
+        public object SolveTaskOne(string[] input)
         {
             var elfs = GetElfCalories(input);
-            return Task.FromResult((double)elfs.Max());
+            return elfs.Max();
         }
 
-        public Task<double> SolveTaskTwo(string[] input)
+        public object SolveTaskTwo(string[] input)
         {
             var elfs = GetElfCalories(input);
             var top3 = elfs.OrderByDescending(x => x).Take(3).ToArray();
-            return Task.FromResult((double)top3.Sum());
+            return top3.Sum();
         }
 
         private static List<long> GetElfCalories(string[] input)

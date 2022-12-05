@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode2022.Day02
+﻿namespace AdventOfCode2022.Day02
 {
     internal class ProblemSolver : IProblemSolver
     {
@@ -29,7 +23,7 @@ namespace AdventOfCode2022.Day02
             { 'C', 'B' }
         };
 
-        public Task<double> SolveTaskOne(string[] input)
+        public object SolveTaskOne(string[] input)
         {
             var parsed = ParseInput(input);
             double score = CalculateScore(parsed, new Dictionary<char, char>
@@ -38,14 +32,14 @@ namespace AdventOfCode2022.Day02
                 { 'Y', 'B' },
                 { 'Z', 'C' },
             });
-            return Task.FromResult(score);
+            return score;
         }
 
-        public Task<double> SolveTaskTwo(string[] input)
+        public object SolveTaskTwo(string[] input)
         {
             var parsed = ParseInput(input);
             double score = CalculateScoreStep2(parsed);
-            return Task.FromResult(score);
+            return score;
         }
 
         private List<Tuple<char, char>> ParseInput(string[] input)
