@@ -16,7 +16,7 @@
         public object SolveTaskTwo(string[] input)
         {
             var folders = ExecuteCommands(input);
-            long freeSpace = TOTAL_DISK_SIZE - folders.FirstOrDefault().GetTotalSize();
+            long freeSpace = TOTAL_DISK_SIZE - folders.First().GetTotalSize();
             long spaceNeeded = UPDATE_SIZE - freeSpace;
 
             var folderToDelete = folders
@@ -28,7 +28,7 @@
             return folderToDelete;
         }
 
-        private List<DirEntry> ExecuteCommands(string[] input)
+        private static List<DirEntry> ExecuteCommands(string[] input)
         {
             Dictionary<string, DirEntry> result = new();
 
@@ -37,7 +37,10 @@
             {
                 if (cmd == "$ cd ..")
                 {
-                    currentFolder = result[currentFolder].Parent.GetPath();
+                    if (currentFolder == null)
+                        continue;
+
+                    currentFolder = result[currentFolder].Parent?.GetPath();
                 }
                 else if (cmd.StartsWith("$ cd /"))
                 {
@@ -46,6 +49,9 @@
                 }
                 else if (cmd.StartsWith("$ cd"))
                 {
+                    if (currentFolder == null)
+                        continue;
+
                     string next = cmd[5..];
                     DirEntry parent = result[currentFolder];
 
