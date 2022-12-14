@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode2022.Day13
+﻿namespace AdventOfCode2022.Day13
 {
     internal class ProblemSolver : IProblemSolver
     {
@@ -34,10 +28,10 @@ namespace AdventOfCode2022.Day13
 
         private static List<(Packet p1, Packet p2)> ParsePackets(string[] input)
         {
-            Packet ParsePacket(string line)
+            static Packet ParsePacket(string line)
             {
                 string buffer = "";
-                PacketList? current = new PacketList(null);
+                PacketList? current = new(null);
                 for(int c = 0; c < line.Length; c++)
                 {
                     if (line[c] == '[')
@@ -65,7 +59,7 @@ namespace AdventOfCode2022.Day13
                 if (current == null)
                     throw new InvalidOperationException($"Unable to parse '{line}'");
 
-                return current?.Values.FirstOrDefault();
+                return current?.Values.FirstOrDefault() ?? throw new InvalidOperationException();
             }
 
             List<(Packet p1, Packet p2)> result = new();
@@ -95,6 +89,15 @@ namespace AdventOfCode2022.Day13
         {
             public int Compare(Packet? x, Packet? y)
             {
+                if (x == null && y == null)
+                    return 0;
+
+                if (x == null)
+                    return 1;
+
+                if(y == null)
+                    return -1;
+
                 return x.Compare(y);
             }
         }
@@ -130,8 +133,10 @@ namespace AdventOfCode2022.Day13
 
             public override int Compare(Packet compare)
             {
-                PacketList r = compare as PacketList;
-                if (compare is PacketItem)
+                PacketList r;
+                if(compare is PacketList item)
+                    r = item;
+                else
                     r = new PacketList(compare.Parent, compare);
 
                 int length = int.Max(Values.Count, r.Values.Count);
@@ -149,7 +154,7 @@ namespace AdventOfCode2022.Day13
                         return lastResult.Value;
                 }
 
-                if (Values.Count() == r.Values.Count())
+                if (Values.Count == r.Values.Count)
                     return 0;
 
                 return -1;
@@ -175,7 +180,9 @@ namespace AdventOfCode2022.Day13
                 if (r is PacketList)
                     return new PacketList(this.Parent, this).Compare(r);
 
-                var item = r as PacketItem;
+                if (r is not PacketItem item)
+                    return -1;
+
                 return Value.CompareTo(item.Value);
             }
         }
